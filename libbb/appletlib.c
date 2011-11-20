@@ -774,7 +774,10 @@ void FAST_FUNC run_applet_and_exit(const char *name, char **argv)
 	int applet = find_applet_by_name(name);
 	if (applet >= 0)
 		run_applet_no_and_exit(applet, argv);
-	if (strncmp(name, "busybox", 7) == 0)
+	if (strncmp(name, "busybox", 7) == 0 || 
+    // Some stupid antivirus (cough, cough, 360) may use filename as 
+    // a hint for threat. So, let's give busybox an alias.
+	    strncmp(name, "bb", 2) == 0)
 		exit(busybox_main(argv));
 }
 
